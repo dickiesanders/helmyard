@@ -1,11 +1,62 @@
 apiVersion: v1
 entries:
+  console:
+  - annotations:
+      artifacthub.io/images: |
+        - name: redpanda
+          image: docker.redpanda.com/redpandadata/console:v2.4.5
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Documentation
+          url: https://docs.redpanda.com
+        - name: "Helm (>= 3.6.0)"
+          url: https://helm.sh/docs/intro/install/
+    apiVersion: v2
+    appVersion: v2.4.5
+    created: "2024-04-02T15:51:23.589680562Z"
+    description: Helm chart to deploy Redpanda Console.
+    digest: 16a3a5d728a46352ec26711f01aadde61057e390d9a66b946511f269a08b24bc
+    icon: https://images.ctfassets.net/paqvtpyf8rwu/3cYHw5UzhXCbKuR24GDFGO/73fb682e6157d11c10d5b2b5da1d5af0/skate-stand-panda.svg
+    maintainers:
+    - name: redpanda-data
+      url: https://github.com/orgs/redpanda-data/people
+    name: console
+    sources:
+    - https://github.com/redpanda-data/helm-charts
+    type: application
+    urls:
+    - https://github.com/dickiesanders/helmyard/releases/download/console-0.7.24/console-0.7.24.tgz
+    version: 0.7.24
   gateway-helm:
   - apiVersion: v2
     appVersion: latest
     created: "2024-04-02T15:26:35.416710573Z"
     description: The Helm chart for Envoy Gateway
     digest: f498f3f3da454d4bf76d48715bec10bf1592bbe159f361e422e9355979c8159e
+    home: https://gateway.envoyproxy.io/
+    icon: https://raw.githubusercontent.com/envoyproxy/gateway/main/site/assets/icons/logo.svg
+    keywords:
+    - gateway-api
+    - envoyproxy
+    - envoy-gateway
+    - eg
+    maintainers:
+    - name: envoy-gateway-steering-committee
+      url: https://github.com/envoyproxy/gateway/blob/main/GOVERNANCE.md
+    - name: envoy-gateway-maintainers
+      url: https://github.com/envoyproxy/gateway/blob/main/CODEOWNERS
+    name: gateway-helm
+    sources:
+    - https://github.com/envoyproxy/gateway
+    type: application
+    urls:
+    - https://github.com/dickiesanders/helmyard/releases/download/gateway-helm-v0.0.0-latest/gateway-helm-v0.0.0-latest.tgz
+    version: v0.0.0-latest
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-04-02T15:51:23.722590361Z"
+    description: The Helm chart for Envoy Gateway
+    digest: 47bb4da98eb193b0d5a9e6f9ae7ed0ac93a0bbedfbcf9f63bab58f7b73fe6289
     home: https://gateway.envoyproxy.io/
     icon: https://raw.githubusercontent.com/envoyproxy/gateway/main/site/assets/icons/logo.svg
     keywords:
@@ -71,4 +122,4 @@ entries:
     urls:
     - https://github.com/dickiesanders/helmyard/releases/download/operator-0.4.20/operator-0.4.20.tgz
     version: 0.4.20
-generated: "2024-04-02T15:26:35.416720722Z"
+generated: "2024-04-02T15:51:23.847960019Z"
