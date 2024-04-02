@@ -57,7 +57,7 @@ def process_yaml_file(yaml_file):
             adjusted_chart_path = os.path.join(clone_target_dir, path)
 
             # Now, copy the chart to the charts directory
-            copy_chart_to_charts_dir(clone_target_dir, path, chart_name)
+            copy_chart_to_charts_dir(adjusted_chart_path, path, chart_name)
 
 def copy_chart_to_charts_dir(source_dir, chart_path, chart_name):
     """
