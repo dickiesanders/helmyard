@@ -3,9 +3,9 @@ repos:
     paths:
       - "charts/operator"
       - "charts/console"
-  # - url: "https://github.com/oauth2-proxy/manifests"
-  #   paths:
-  #     - "helm/oauth2-proxy"
   - url: "https://github.com/envoyproxy/gateway"
     paths:
       - "charts/gateway-helm"
+  # - url: "https://github.com/oauth2-proxy/manifests"
+  #   paths:
+  #     - "helm/oauth2-proxy"
