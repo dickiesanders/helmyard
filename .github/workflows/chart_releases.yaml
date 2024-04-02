@@ -1,0 +1,51 @@
+name: Publish Helm Charts
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to main branch. Adjust as necessary.
+    paths:
+      - repos.yaml
+    tags-ignore:
+      - "*"
+
+jobs:
+  publish-charts:
+    runs-on: ubuntu-latest
+    permissions:
+        contents: write
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for .Git Info
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Python Dependencies
+        run: pip install pyyaml gitpython
+
+      - name: Process YAML and Publish Charts
+        run: |
+          python .github/scripts/process_and_publish.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Ensuring access to GitHub API
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Adding new helm charts to repo
+        #   branch: feature-123
+          commit_options: '--no-verify --signoff'
+  
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
