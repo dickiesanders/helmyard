@@ -1,0 +1,49 @@
+apiVersion: v1
+entries:
+  operator:
+  - annotations:
+      artifacthub.io/crds: |
+        - kind: Redpanda
+          version: v1alpha1
+          name: redpanda
+          displayName: Redpanda
+          description: Define a Redpanda cluster
+      artifacthub.io/images: |
+        - name: redpanda-operator
+          image: docker.redpanda.com/redpandadata/redpanda-operator:v2.1.15-23.3.7
+        - name: configurator
+          image: docker.redpanda.com/redpandadata/configurator:v2.1.15-23.3.7
+        - name: redpanda
+          image: docker.redpanda.com/redpandadata/redpanda:v23.3.7
+        - name: kube-rbac-proxy
+          image: gcr.io/kubebuilder/kube-rbac-proxy:v0.14.0
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Documentation
+          url: https://docs.redpanda.com
+        - name: "Helm (>= 3.6.0)"
+          url: https://helm.sh/docs/intro/install/
+      artifacthub.io/operator: "true"
+      artifacthub.io/operatorCapabilities: Seamless Upgrades
+    apiVersion: v2
+    appVersion: v2.1.15-23.3.7
+    created: "2024-04-02T14:48:43.762005403Z"
+    dependencies:
+    - condition: monitoring.deployPrometheusKubeStack
+      name: kube-prometheus-stack
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 51.2.0
+    description: Redpanda operator helm chart
+    digest: c4b5e433d82e3d9cd4dacdc031878250cfa597ce5a5096b5c5f183fcd0c035b8
+    icon: https://go.redpanda.com/hubfs/Redpandas/operator-panda.png
+    maintainers:
+    - name: redpanda-data
+      url: https://github.com/orgs/redpanda-data/people
+    name: operator
+    sources:
+    - https://github.com/redpanda-data/helm-charts
+    type: application
+    urls:
+    - https://github.com/dickiesanders/helmyard/releases/download/operator-0.4.20/operator-0.4.20.tgz
+    version: 0.4.20
+generated: "2024-04-02T14:48:43.7620145Z"
