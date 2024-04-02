@@ -1,5 +1,30 @@
 apiVersion: v1
 entries:
+  gateway-helm:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-04-02T15:26:35.416710573Z"
+    description: The Helm chart for Envoy Gateway
+    digest: f498f3f3da454d4bf76d48715bec10bf1592bbe159f361e422e9355979c8159e
+    home: https://gateway.envoyproxy.io/
+    icon: https://raw.githubusercontent.com/envoyproxy/gateway/main/site/assets/icons/logo.svg
+    keywords:
+    - gateway-api
+    - envoyproxy
+    - envoy-gateway
+    - eg
+    maintainers:
+    - name: envoy-gateway-steering-committee
+      url: https://github.com/envoyproxy/gateway/blob/main/GOVERNANCE.md
+    - name: envoy-gateway-maintainers
+      url: https://github.com/envoyproxy/gateway/blob/main/CODEOWNERS
+    name: gateway-helm
+    sources:
+    - https://github.com/envoyproxy/gateway
+    type: application
+    urls:
+    - https://github.com/dickiesanders/helmyard/releases/download/gateway-helm-v0.0.0-latest/gateway-helm-v0.0.0-latest.tgz
+    version: v0.0.0-latest
   operator:
   - annotations:
       artifacthub.io/crds: |
@@ -46,4 +71,4 @@ entries:
     urls:
     - https://github.com/dickiesanders/helmyard/releases/download/operator-0.4.20/operator-0.4.20.tgz
     version: 0.4.20
-generated: "2024-04-02T14:48:43.7620145Z"
+generated: "2024-04-02T15:26:35.416720722Z"
