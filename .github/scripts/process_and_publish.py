@@ -48,12 +48,12 @@ def copy_chart_to_charts_dir(source_dir, chart_path):
     full_source_path = os.path.join(source_dir, chart_path)
 
     if not os.path.exists(full_source_path):
+        print(chart_name)
         print(f"Source path does not exist: {full_source_path}")
         return
 
     if os.path.exists(dest_path):
         shutil.rmtree(dest_path)
-        print(chart_name)
     shutil.copytree(full_source_path, dest_path)
 
     print(f"Copied {full_source_path} to {dest_path}")
