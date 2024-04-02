@@ -1,0 +1,69 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: /tools/docker/envoy-gateway/
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /site
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    ignore:
+      # skip to update retest, because it won't work with the latest version
+      - dependency-name: "envoyproxy/toolshed/gh-actions/retest"
+  - package-ecosystem: github-actions
+    directory: /tools/github-actions/setup-deps
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      k8s.io:
+        patterns:
+          - "k8s.io/*"
+      go.opentelemetry.io:
+        patterns:
+          - "go.opentelemetry.io/*"
+  - package-ecosystem: pip
+    directory: /tools/src/codespell
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: /tools/src/helm-docs
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: /tools/src/buf
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: /tools/src/golangci-lint
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: /tools/src/kind
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: /tools/src/setup-envtest
+    schedule:
+      interval: weekly
+  - package-ecosystem: pip
+    directory: /tools/src/sphinx-build
+    schedule:
+      interval: weekly
+  - package-ecosystem: pip
+    directory: /tools/src/yamllint
+    schedule:
+      interval: weekly

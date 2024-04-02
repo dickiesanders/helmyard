@@ -1,0 +1,20 @@
+xds:
+  envoy-gateway-system/eg:
+    '@type': type.googleapis.com/envoy.admin.v3.RoutesConfigDump
+    dynamicRouteConfigs:
+    - routeConfig:
+        '@type': type.googleapis.com/envoy.config.route.v3.RouteConfiguration
+        ignorePortInHostMatching: true
+        name: envoy-gateway-system/eg/http
+        virtualHosts:
+        - domains:
+          - www.example.com
+          name: envoy-gateway-system/eg/http/www_example_com
+          routes:
+          - match:
+              prefix: /
+            name: httproute/envoy-gateway-system/backend/rule/0/match/0/www_example_com
+            route:
+              cluster: httproute/envoy-gateway-system/backend/rule/0
+              upgradeConfigs:
+              - upgradeType: websocket
