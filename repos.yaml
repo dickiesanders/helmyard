@@ -3,6 +3,7 @@ repos:
     paths:
       - "charts/operator"
       - "charts/console"
+      - "charts/redpanda"
   - url: "https://github.com/envoyproxy/gateway"
     paths:
       - "charts/gateway-helm"
