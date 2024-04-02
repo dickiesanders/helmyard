@@ -3,7 +3,7 @@ import shutil
 import yaml
 from git import Repo
 
-yaml_file = '../../repos.yaml'
+yaml_file = './repos.yaml'
 
 # Target directory for the charts
 charts_dir = './charts/'
