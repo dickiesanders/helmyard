@@ -42,7 +42,6 @@ def copy_chart_to_charts_dir(source_dir, chart_path):
     charts directory, creating a subdirectory named after the last segment of the path.
     """
     chart_name = chart_path.split('/')[-1]
-    print(chart_name)
     dest_path = os.path.join(charts_dir, chart_name)
 
     # Calculate the full source path
@@ -54,6 +53,7 @@ def copy_chart_to_charts_dir(source_dir, chart_path):
 
     if os.path.exists(dest_path):
         shutil.rmtree(dest_path)
+        print(chart_name)
     shutil.copytree(full_source_path, dest_path)
 
     print(f"Copied {full_source_path} to {dest_path}")
