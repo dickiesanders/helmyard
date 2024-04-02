@@ -45,10 +45,9 @@ Helmyard automates the process of managing and publishing Helm charts by interpr
 
 ### Usage
 
-Execute the script to start the process:
-```bash
-python process_and_publish.py
-```
+This process is managed by GitHub Actions:
+
+Additions to the `repos.yaml` will trigger an action to build and publish the helm charts to `https://dickiesanders.github.io/helmyard`
 
 helmyard will clone the specified repositories, extract the Helm charts based on the paths provided, and organize them into the `./charts/` directory, ready for deployment or further action.
 
