@@ -2,6 +2,7 @@ repos:
   - url: "https://github.com/redpanda-data/helm-charts"
     paths:
       - "charts/operator"
+      - "charts/console"
   # - url: "https://github.com/oauth2-proxy/manifests"
   #   paths:
   #     - "helm/oauth2-proxy"
