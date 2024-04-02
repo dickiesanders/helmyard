@@ -42,6 +42,7 @@ def copy_chart_to_charts_dir(source_dir, chart_path):
     charts directory, creating a subdirectory named after the last segment of the path.
     """
     chart_name = chart_path.split('/')[-1]
+    print(chart_name)
     dest_path = os.path.join(charts_dir, chart_name)
 
     # Calculate the full source path
