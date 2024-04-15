@@ -1,4 +1,4 @@
-//+gotohelm:ignore=true
+// +gotohelm:ignore=true
 package redpanda
 
 import (
@@ -228,15 +228,23 @@ type PostUpgradeJob struct {
 	// ExtraEnvFrom []corev1.EnvFromSource `json:"extraEnvFrom"`
 }
 
+type PodTemplate struct {
+	Labels      map[string]string `json:"labels"`
+	Annotations map[string]string `json:"annotations" jsonschema:"required"`
+}
+
 type Statefulset struct {
 	NodeAffinity   map[string]any `json:"nodeAffinity"`
 	Replicas       int            `json:"replicas" jsonschema:"required"`
 	UpdateStrategy struct {
 		Type string `json:"type" jsonschema:"required,pattern=^(RollingUpdate|OnDelete)$"`
 	} `json:"updateStrategy" jsonschema:"required"`
-	AdditionalRedpandaCmdFlags []string          `json:"additionalRedpandaCmdFlags"`
-	Annotations                map[string]string `json:"annotations" jsonschema:"required"`
-	Budget                     struct {
+	AdditionalRedpandaCmdFlags []string `json:"additionalRedpandaCmdFlags"`
+	// Annotations are used only for `Statefulset.spec.template.metadata.annotations`. The StatefulSet does not have
+	// any dedicated annotation.
+	Annotations map[string]string `json:"annotations" jsonschema:"deprecated"`
+	PodTemplate PodTemplate       `json:"podTemplate"`
+	Budget      struct {
 		MaxUnavailable int `json:"maxUnavailable" jsonschema:"required"`
 	} `json:"budget" jsonschema:"required"`
 	StartupProbe struct {
@@ -403,9 +411,10 @@ type PandaProxyClient struct {
 
 type TLSCert struct {
 	// Enabled   bool   `json:"enabled"`
-	CAEnabled bool   `json:"caEnabled" jsonschema:"required"`
-	Duration  string `json:"duration" jsonschema:"pattern=.*[smh]$"`
-	IssuerRef struct {
+	CAEnabled             bool   `json:"caEnabled" jsonschema:"required"`
+	Duration              string `json:"duration" jsonschema:"pattern=.*[smh]$"`
+	ApplyInternalDNSNames *bool  `json:"applyInternalDNSNames"`
+	IssuerRef             struct {
 		Name string        `json:"name"`
 		Kind IssuerRefKind `json:"kind"`
 	} `json:"issuerRef"`
@@ -451,8 +460,9 @@ type AdminListeners struct {
 }
 
 type AdminExternal struct {
-	AdvertisedPorts []int `json:"advertisedPorts" jsonschema:"minItems=1"`
-	Enabled         bool  `json:"enabled"`
+	AdvertisedPorts []int32 `json:"advertisedPorts" jsonschema:"minItems=1"`
+	Enabled         *bool   `json:"enabled"`
+	Port            int32   `json:"port" jsonschema:"required"`
 }
 
 type HTTPListeners struct {
@@ -465,9 +475,9 @@ type HTTPListeners struct {
 }
 
 type HTTPExternal struct {
-	AdvertisedPorts      []int        `json:"advertisedPorts" jsonschema:"minItems=1"`
-	Enabled              bool         `json:"enabled"`
-	Port                 int          `json:"port" jsonschema:"required"`
+	AdvertisedPorts      []int32      `json:"advertisedPorts" jsonschema:"minItems=1"`
+	Enabled              *bool        `json:"enabled"`
+	Port                 int32        `json:"port" jsonschema:"required"`
 	AuthenticationMethod *string      `json:"authenticationMethod" jsonschema:"pattern=http_basic|none,oneof_type=string;null"`
 	PrefixTemplate       string       `json:"prefixTemplate"`
 	TLS                  *ExternalTLS `json:"tls" jsonschema:"required"`
@@ -481,9 +491,9 @@ type KafkaListeners struct {
 }
 
 type KafkaExternal struct {
-	AdvertisedPorts      []int   `json:"advertisedPorts" jsonschema:"minItems=1"`
-	Enabled              bool    `json:"enabled"`
-	Port                 int     `json:"port" jsonschema:"required"`
+	AdvertisedPorts      []int32 `json:"advertisedPorts" jsonschema:"minItems=1"`
+	Enabled              *bool   `json:"enabled"`
+	Port                 int32   `json:"port" jsonschema:"required"`
 	AuthenticationMethod *string `json:"authenticationMethod" jsonschema:"pattern=sasl|none|mtls_identity,oneof_type=string;null"`
 	PrefixTemplate       string  `json:"prefixTemplate"`
 }
@@ -498,9 +508,9 @@ type SchemaRegistryListeners struct {
 }
 
 type SchemaRegistryExternal struct {
-	AdvertisedPorts      []int        `json:"advertisedPorts" jsonschema:"minItems=1"`
-	Enabled              bool         `json:"enabled"`
-	Port                 int          `json:"port"`
+	AdvertisedPorts      []int32      `json:"advertisedPorts" jsonschema:"minItems=1"`
+	Enabled              *bool        `json:"enabled"`
+	Port                 int32        `json:"port"`
 	AuthenticationMethod *string      `json:"authenticationMethod" jsonschema:"pattern=http_basic|none,oneof_type=string;null"`
 	TLS                  *ExternalTLS `json:"tls"`
 }
