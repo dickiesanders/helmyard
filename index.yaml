@@ -4,6 +4,32 @@ entries:
   - annotations:
       artifacthub.io/images: |
         - name: redpanda
+          image: docker.redpanda.com/redpandadata/console:v2.4.6
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Documentation
+          url: https://docs.redpanda.com
+        - name: "Helm (>= 3.6.0)"
+          url: https://helm.sh/docs/intro/install/
+    apiVersion: v2
+    appVersion: v2.4.6
+    created: "2024-04-15T14:59:23.09833645Z"
+    description: Helm chart to deploy Redpanda Console.
+    digest: 48d120253c1ac0220a77e33da85b0bad97b70cb428d3bae502e58aaaee3ab212
+    icon: https://images.ctfassets.net/paqvtpyf8rwu/3cYHw5UzhXCbKuR24GDFGO/73fb682e6157d11c10d5b2b5da1d5af0/skate-stand-panda.svg
+    maintainers:
+    - name: redpanda-data
+      url: https://github.com/orgs/redpanda-data/people
+    name: console
+    sources:
+    - https://github.com/redpanda-data/helm-charts
+    type: application
+    urls:
+    - https://github.com/dickiesanders/helmyard/releases/download/console-0.7.26/console-0.7.26.tgz
+    version: 0.7.26
+  - annotations:
+      artifacthub.io/images: |
+        - name: redpanda
           image: docker.redpanda.com/redpandadata/console:v2.4.5
       artifacthub.io/license: Apache-2.0
       artifacthub.io/links: |
@@ -86,6 +112,51 @@ entries:
           description: Define a Redpanda cluster
       artifacthub.io/images: |
         - name: redpanda-operator
+          image: docker.redpanda.com/redpandadata/redpanda-operator:v2.1.16-23.3.11
+        - name: configurator
+          image: docker.redpanda.com/redpandadata/configurator:v2.1.16-23.3.11
+        - name: redpanda
+          image: docker.redpanda.com/redpandadata/redpanda:v23.3.11
+        - name: kube-rbac-proxy
+          image: gcr.io/kubebuilder/kube-rbac-proxy:v0.14.0
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Documentation
+          url: https://docs.redpanda.com
+        - name: "Helm (>= 3.6.0)"
+          url: https://helm.sh/docs/intro/install/
+      artifacthub.io/operator: "true"
+      artifacthub.io/operatorCapabilities: Seamless Upgrades
+    apiVersion: v2
+    appVersion: v2.1.16-23.3.11
+    created: "2024-04-15T14:59:23.279878636Z"
+    dependencies:
+    - condition: monitoring.deployPrometheusKubeStack
+      name: kube-prometheus-stack
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 51.2.0
+    description: Redpanda operator helm chart
+    digest: 052a682c53332b5e9493f9d284e41ae6202069bbd02ce52adefadd33eb82d0de
+    icon: https://go.redpanda.com/hubfs/Redpandas/operator-panda.png
+    maintainers:
+    - name: redpanda-data
+      url: https://github.com/orgs/redpanda-data/people
+    name: operator
+    sources:
+    - https://github.com/redpanda-data/helm-charts
+    type: application
+    urls:
+    - https://github.com/dickiesanders/helmyard/releases/download/operator-0.4.21/operator-0.4.21.tgz
+    version: 0.4.21
+  - annotations:
+      artifacthub.io/crds: |
+        - kind: Redpanda
+          version: v1alpha1
+          name: redpanda
+          displayName: Redpanda
+          description: Define a Redpanda cluster
+      artifacthub.io/images: |
+        - name: redpanda-operator
           image: docker.redpanda.com/redpandadata/redpanda-operator:v2.1.15-23.3.7
         - name: configurator
           image: docker.redpanda.com/redpandadata/configurator:v2.1.15-23.3.7
@@ -126,6 +197,46 @@ entries:
   - annotations:
       artifacthub.io/images: |
         - name: redpanda
+          image: docker.redpanda.com/redpandadata/redpanda:v23.3.11
+        - name: busybox
+          image: busybox:latest
+        - name: mintel/docker-alpine-bash-curl-jq
+          image: mintel/docker-alpine-bash-curl-jq:latest
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Documentation
+          url: https://docs.redpanda.com
+        - name: "Helm (>= 3.8.0)"
+          url: https://helm.sh/docs/intro/install/
+    apiVersion: v2
+    appVersion: v23.3.11
+    created: "2024-04-15T14:59:23.393214246Z"
+    dependencies:
+    - condition: console.enabled
+      name: console
+      repository: https://charts.redpanda.com
+      version: '>=0.5 <1.0'
+    - condition: connectors.enabled
+      name: connectors
+      repository: https://charts.redpanda.com
+      version: '>=0.1.2 <1.0'
+    description: Redpanda is the real-time engine for modern apps.
+    digest: 1b3e0b6edce92efa29cb0441ad571ae52c7b1821c90419c8c207a181819b956a
+    icon: https://images.ctfassets.net/paqvtpyf8rwu/3cYHw5UzhXCbKuR24GDFGO/73fb682e6157d11c10d5b2b5da1d5af0/skate-stand-panda.svg
+    kubeVersion: ^1.21.0-0
+    maintainers:
+    - name: redpanda-data
+      url: https://github.com/orgs/redpanda-data/people
+    name: redpanda
+    sources:
+    - https://github.com/redpanda-data/helm-charts
+    type: application
+    urls:
+    - https://github.com/dickiesanders/helmyard/releases/download/redpanda-5.7.39/redpanda-5.7.39.tgz
+    version: 5.7.39
+  - annotations:
+      artifacthub.io/images: |
+        - name: redpanda
           image: docker.redpanda.com/redpandadata/redpanda:v23.3.10
         - name: busybox
           image: busybox:latest
@@ -163,4 +274,20 @@ entries:
     urls:
     - https://github.com/dickiesanders/helmyard/releases/download/redpanda-5.7.36/redpanda-5.7.36.tgz
     version: 5.7.36
-generated: "2024-04-02T16:11:19.033327763Z"
+  spark-operator:
+  - apiVersion: v2
+    appVersion: v1beta2-1.4.2-3.5.0
+    created: "2024-04-15T14:59:23.52328044Z"
+    description: A Helm chart for Spark on Kubernetes operator
+    digest: 6ec4c121f4aba4c6457bf68628746e04eb7e4aab340823236866c31c34fb8949
+    home: https://github.com/kubeflow/spark-operator
+    keywords:
+    - spark
+    maintainers:
+    - email: yuchaoran2011@gmail.com
+      name: yuchaoran2011
+    name: spark-operator
+    urls:
+    - https://github.com/dickiesanders/helmyard/releases/download/spark-operator-1.2.5/spark-operator-1.2.5.tgz
+    version: 1.2.5
+generated: "2024-04-15T14:59:23.523325645Z"
