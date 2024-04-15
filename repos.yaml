@@ -4,6 +4,9 @@ repos:
       - "charts/operator"
       - "charts/console"
       - "charts/redpanda"
+  - url: "https://github.com/kubeflow/spark-operator"
+    paths:
+      - "charts/spark-operator-chart"
   # - url: "https://github.com/envoyproxy/gateway"
   #   paths:
   #     - "charts/gateway-helm"
