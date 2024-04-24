@@ -10,7 +10,3 @@ repos:
   - url: "https://github.com/open-webui/open-webui"
     paths:
       - "kubernetes/helm"
-  # - url: "https://github.com/envoyproxy/gateway"
-  #   paths:
-  #     - "charts/gateway-helm"
-  
