@@ -1,6 +1,7 @@
 package redpanda_test
 
 import (
+	"bytes"
 	"os"
 	"os/exec"
 	"testing"
@@ -95,26 +96,11 @@ func TestTemplate(t *testing.T) {
 	client, err := helm.New(helm.Options{ConfigHome: testutil.TempDir(t)})
 	require.NoError(t, err)
 
-	lock, err := helm.GetChartLock("Chart.lock")
-	require.NoError(t, err)
-
-	// Chart deps are kept within ./charts as a tgz archive. Helm dep build
-	// will ensure that ./charts is in sync with Chart.lock.
-	_, err = exec.CommandContext(ctx, "helm", "dep", "build").CombinedOutput()
-	require.NoError(t, err, "failed to refresh helm dependencies")
-
-	newLock, err := helm.GetChartLock("Chart.lock")
-	require.NoError(t, err)
-
-	// Comparison between Chart.lock before and after `helm dep build` execution is required to prevent
-	// circular dependency between Chart.lock update, which is included in release [Auto commit], and
-	// next unnecessary release pipeline execution due to change in `generated` field. Allowed change
-	// in Chart.lock is only when dependencies are different. Dependencies might change only when
-	// Redpanda chart dependencies got new release.
-	if lock.Digest == newLock.Digest {
-		err = helm.UpdateChartLock(lock, "Chart.lock")
-		require.NoError(t, err)
-	}
+	// Chart deps are kept within ./charts as a tgz archive, which is git
+	// ignored. Helm dep build will ensure that ./charts is in sync with
+	// Chart.lock, which is tracked by git.
+	require.NoError(t, client.RepoAdd(ctx, "redpanda", "https://charts.redpanda.com"))
+	require.NoError(t, client.DependencyBuild(ctx, "."), "failed to refresh helm dependencies")
 
 	values, err := os.ReadDir("./ci")
 	require.NoError(t, err)
@@ -138,6 +124,25 @@ func TestTemplate(t *testing.T) {
 				},
 			})
 			require.NoError(t, err)
+
+			// kube-lint template file
+			var stdout bytes.Buffer
+			var stderr bytes.Buffer
+			inputYaml := bytes.NewBuffer(out)
+
+			cmd := exec.CommandContext(ctx, "kube-linter", "lint", "-", "--format", "json")
+			cmd.Stdin = inputYaml
+			cmd.Stdout = &stdout
+			cmd.Stderr = &stderr
+
+			errKubeLinter := cmd.Run()
+			if errKubeLinter != nil && len(stderr.String()) > 0 {
+				t.Logf("kube-linter error(s) found for %q: \n%s\nstderr:\n%s", v.Name(), stdout.String(), stderr.String())
+			} else if errKubeLinter != nil {
+				t.Logf("kube-linter error(s) found for %q: \n%s", v.Name(), errKubeLinter)
+			}
+			// TODO: remove comment below and the logging above once we agree to linter
+			//require.NoError(t, errKubeLinter)
 
 			testutil.AssertGolden(t, testutil.YAML, "./testdata/"+v.Name()+".golden", out)
 		})
