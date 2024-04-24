@@ -102,6 +102,29 @@ entries:
     urls:
     - https://github.com/dickiesanders/helmyard/releases/download/gateway-helm-v0.0.0-latest/gateway-helm-v0.0.0-latest.tgz
     version: v0.0.0-latest
+  open-webui:
+  - annotations:
+      licenses: MIT
+    apiVersion: v2
+    appVersion: latest
+    created: "2024-04-24T17:00:57.306028908Z"
+    description: "Open WebUI: A User-Friendly Web Interface for Chat Interactions
+      \U0001F44B"
+    digest: 8980be86987d4408b4a619fd65aa8a62c03a20a097ffe1980870f6fc9faa0f3c
+    home: https://www.openwebui.com/
+    icon: https://raw.githubusercontent.com/open-webui/open-webui/main/static/favicon.png
+    keywords:
+    - llm
+    - chat
+    - web-ui
+    name: open-webui
+    sources:
+    - https://github.com/open-webui/open-webui/tree/main/kubernetes/helm
+    - https://hub.docker.com/r/ollama/ollama
+    - https://github.com/open-webui/open-webui/pkgs/container/open-webui
+    urls:
+    - https://github.com/dickiesanders/helmyard/releases/download/open-webui-1.0.0/open-webui-1.0.0.tgz
+    version: 1.0.0
   operator:
   - annotations:
       artifacthub.io/crds: |
@@ -276,6 +299,21 @@ entries:
     version: 5.7.36
   spark-operator:
   - apiVersion: v2
+    appVersion: v1beta2-1.4.4-3.5.0
+    created: "2024-04-24T17:00:57.433299418Z"
+    description: A Helm chart for Spark on Kubernetes operator
+    digest: 3d027d11ee364a7f568176d8deb303fd7cb7d10af9b763598a2b42c72dff7372
+    home: https://github.com/kubeflow/spark-operator
+    keywords:
+    - spark
+    maintainers:
+    - email: yuchaoran2011@gmail.com
+      name: yuchaoran2011
+    name: spark-operator
+    urls:
+    - https://github.com/dickiesanders/helmyard/releases/download/spark-operator-1.2.13/spark-operator-1.2.13.tgz
+    version: 1.2.13
+  - apiVersion: v2
     appVersion: v1beta2-1.4.2-3.5.0
     created: "2024-04-15T14:59:23.52328044Z"
     description: A Helm chart for Spark on Kubernetes operator
@@ -290,4 +328,4 @@ entries:
     urls:
     - https://github.com/dickiesanders/helmyard/releases/download/spark-operator-1.2.5/spark-operator-1.2.5.tgz
     version: 1.2.5
-generated: "2024-04-15T14:59:23.523325645Z"
+generated: "2024-04-24T17:00:57.433322421Z"
