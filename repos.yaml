@@ -3,6 +3,8 @@ repos:
     paths:
       - "charts/operator"
       - "charts/console"
+  - url: "https://github.com/redpanda-data/helm-charts"
+    paths:
       - "charts/redpanda"
   - url: "https://github.com/kubeflow/spark-operator"
     paths:
