@@ -1,9 +1,9 @@
 repos:
-  # - url: "https://github.com/redpanda-data/helm-charts"
-  #   paths:
+  - url: "https://github.com/redpanda-data/helm-charts"
+    paths:
   #     - "charts/operator"
   #     - "charts/console"
-  #     - "charts/redpanda"
+      - "charts/redpanda"
   - url: "https://github.com/kubeflow/spark-operator"
     paths:
       - "charts/spark-operator-chart"
